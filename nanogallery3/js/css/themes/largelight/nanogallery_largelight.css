@@ -1,0 +1,157 @@
+/* Theme for nanoGallery - www.nanogallery.brisbois.fr */
+
+/**************************************/
+/* NAVIGATION BREADCRUMB              */
+/**************************************/
+
+.nanogallery_theme_largelight .nanoGalleryBreadcrumb {
+	border: 1px dotted #999;
+	margin: 1px;
+	background-color: #ddd;
+	font-size:1.0em;
+}
+.nanogallery_theme_largelight .nanoGalleryBreadcrumb .folder {
+	display: inline-block;
+	margin: 2px 5px;
+	background-color: #ddd;
+	color:#444;
+	cursor:pointer;
+}
+.nanogallery_theme_largelight .nanoGalleryBreadcrumb .folder:hover{
+	color: #000;
+}
+
+.nanogallery_theme_largelight .nanoGalleryBreadcrumb .separator {
+	display: inline-block;
+	margin: 0 2px;
+	background-color: #ddd;
+	color:#444;
+}
+
+/**************************************/
+/* IMAGES                             */
+/**************************************/
+
+.nanogallery_theme_largelight .nanoGalleryContainer {
+	text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+	}
+
+.nanogallery_theme_largelight .nanoGalleryContainer .iconInfo{
+}
+.nanogallery_theme_largelight .nanoGalleryContainer .iconInfo:after{
+	content:"i";
+	left:8px;
+	top:8px;
+	position:absolute;
+	background: rgba(0,0,0,0.75); 
+	color: #fff; 
+	border: 2px solid #aaa;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 1.0em;
+	text-align: center;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+}
+.nanogallery_theme_largelight .nanoGalleryContainer .container:hover .iconInfo:after{
+	opacity: 0;
+}
+
+.nanogallery_theme_largelight .nanoGalleryContainer .container{
+	cursor:  pointer;
+	border: 1px solid #fff;
+	margin: 1px;
+	padding: 5px;
+	background-color: #fff;
+	transition: border-color 0.2s ease-out;
+	-webkit-transition : border-color 0.2s ease-out; 
+	-moz-transition : border-color 0.2s ease-out;
+	-o-transition : border-color 0.2s ease-out;
+	display: inline-block; 
+	position: relative; 
+	overflow: hidden;	
+}
+.nanogallery_theme_largelight .nanoGalleryContainer .container:hover{
+	border-color: #888;
+	transition: border-color 0.2s;
+}
+
+.nanogallery_theme_largelight .nanoGalleryContainer .container:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.nanogallery_theme_largelight .nanoGalleryContainer .container .imgContainer{
+}
+
+.nanogallery_theme_largelight .nanoGalleryContainer .container img{
+	background:url('loading.gif') no-repeat center;
+	position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto;
+}
+
+.nanogallery_theme_largelight .nanoGalleryContainer .container .labelImage{
+	position:absolute;
+	background: rgba(50,50,50,0.75); 
+	color: #ddd; 
+	padding: 6px 5px; 
+	opacity: 0;
+	bottom: -99%; 
+	left: 0;
+	transition: all 0.4s ease;
+	-webkit-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	text-align:left;
+}
+.nanogallery_theme_largelight .nanoGalleryContainer .container:hover .labelImage{
+	opacity: 1;
+	bottom: 0;
+}
+
+.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelIconImage{
+	position: absolute;
+	top:8px;
+	width:20px;
+	height:20px;
+	background: url('camera_icon.png') no-repeat center;
+	float:left;
+}
+.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelIconFolder{
+	position: absolute;
+	top:5px;
+	width:20px;
+	height:20px;
+	background: url('folder_icon.png') no-repeat center;
+	float:left;
+}
+
+.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelTitle{
+	color:#eee;
+	font-size:1.1em;
+	top:0px;
+	margin-left:25px;
+	/*float:right;*/
+	margin-right:auto;
+}
+.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelDescription{
+	clear:both;
+	color:#aab;
+	font-size:1.0em;
+	margin:1px 2px;
+	/*text-align: justify;*/
+}
+
+
+
