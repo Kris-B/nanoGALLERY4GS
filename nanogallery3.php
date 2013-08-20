@@ -41,6 +41,7 @@ class nanoGallerySettings {
 	var $_displayBreadcrumb=true;
 	var $_album='';
 	var $_photoset='';
+	var $_maxItemsPerLine=0;
 
 	// check the consistency of the parameters
 	public function checkConsistency() {
@@ -84,6 +85,7 @@ class nanoGallerySettings {
 		if( !empty($this->_displayBreadcrumb) ) { $s.="'displayBreadcrumb':".$this->_displayBreadcrumb.","; } 
 		if( !empty($this->_album) ) { $s.="'album':'".$this->_album."',"; } 
 		if( !empty($this->_photoset) ) { $s.="'photoset':'".$this->_photoset."',"; } 
+		if( !empty($this->_maxItemsPerLine) ) { $s.="'maxItemsPerLine':'".$this->_maxItemsPerLine."',"; } 
 		
 		if ( strlen($s) == 1 ) { return ""; }
 		
@@ -145,6 +147,7 @@ class nanoGalleryParsedContent {
 		if( isset($fields['displayBreadcrumb']) ) { $this->_nanoGallerySettings[$n]->_displayBreadcrumb=$fields['displayBreadcrumb']; }
 		if( isset($fields['album']) ) { $this->_nanoGallerySettings[$n]->_album=$fields['album']; }
 		if( isset($fields['photoset']) ) { $this->_nanoGallerySettings[$n]->_photoset=$fields['photoset']; }
+		if( isset($fields['maxItemsPerLine']) ) { $this->_nanoGallerySettings[$n]->_maxItemsPerLine=$fields['maxItemsPerLine']; }
 		if( isset($fields['forceJQuery']) ) { 
 			if( $fields['forceJQuery'] == 'true' ) { $this->_sliders[$n]->_forceJQuery=$fields['forceJQuery']; }
 		}
@@ -194,10 +197,11 @@ function nanoGallery_header() {
 
 	for( $i=0; $i<count($mp->_nanoGallerySettings); $i++ ) {
 		if( $mp->_nanoGallerySettings[$i]->_forceJQuery == true ) {
-			$tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/jquery-1.8.2.min"></script>'."\n";
+			$tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/third.party/jquery-1.8.2.min"></script>'."\n";
 			break;
 		}
 	}
+    $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/third.party/jquery-jsonp/jquery.jsonp.js"></script>'."\n";
     $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/jquery.nanogallery.js"></script>'."\n";
 	
     $tmpContent.='<link type="text/css" href="'.$SITEURL.'/plugins/nanogallery3/js/third.party/fancybox/jquery.fancybox.css?v=2.1.4" rel="stylesheet">'."\n";

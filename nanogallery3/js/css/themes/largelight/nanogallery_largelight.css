@@ -1,6 +1,17 @@
 /* Theme for nanoGallery - www.nanogallery.brisbois.fr */
 
 /**************************************/
+/* MAIN CONTAINER                     */
+/**************************************/
+
+.nanogallery_theme_largelight {
+	font-size:1.0em;
+	line-height: normal;
+	margin:0px;
+	padding:0px;
+}
+
+/**************************************/
 /* NAVIGATION BREADCRUMB              */
 /**************************************/
 
@@ -8,7 +19,6 @@
 	border: 1px dotted #999;
 	margin: 1px;
 	background-color: #ddd;
-	font-size:1.0em;
 }
 .nanogallery_theme_largelight .nanoGalleryBreadcrumb .folder {
 	display: inline-block;
@@ -29,14 +39,21 @@
 }
 
 /**************************************/
-/* IMAGES                             */
+/* THUMBNAILS                         */
 /**************************************/
 
+.nanogallery_theme_largelight .nanoGalleryContainerParent {
+	text-align: center;
+}
+
 .nanogallery_theme_largelight .nanoGalleryContainer {
-	text-align: justify;
+	/*text-align: justify;
     -ms-text-justify: distribute-all-lines;
-    text-justify: distribute-all-lines;
-	}
+    text-justify: distribute-all-lines;*/
+	text-align: left;
+	width:auto;
+	display: inline-block;
+}
 
 .nanogallery_theme_largelight .nanoGalleryContainer .iconInfo{
 }
@@ -51,7 +68,6 @@
 	width: 20px;
 	height: 20px;
 	line-height: 20px;
-	font-size: 1.0em;
 	text-align: center;
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
@@ -120,35 +136,34 @@
 	bottom: 0;
 }
 
-.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelIconImage{
-	position: absolute;
-	top:8px;
-	width:20px;
-	height:20px;
-	background: url('camera_icon.png') no-repeat center;
-	float:left;
+.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelImageTitle{
+	color:#eee;
+	vertical-align: middle;
+	display: inline;
 }
-.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelIconFolder{
-	position: absolute;
-	top:5px;
-	width:20px;
-	height:20px;
-	background: url('folder_icon.png') no-repeat center;
-	float:left;
+.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelImageTitle:before{
+	content: url(camera_icon.png);
+	display: block;
+	float: left;
+	margin-right: 5px;
 }
 
-.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelTitle{
+.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelFolderTitle{
 	color:#eee;
-	font-size:1.1em;
-	top:0px;
-	margin-left:25px;
-	/*float:right;*/
-	margin-right:auto;
+	vertical-align: middle;
+	display: inline;
 }
+.nanogallery_theme_largelight .nanoGalleryContainer .container  .labelFolderTitle:before{
+	content: url(camera_icon.png);
+	display: block;
+	float: left;
+	margin-right: 5px;
+}
+
+
 .nanogallery_theme_largelight .nanoGalleryContainer .container  .labelDescription{
 	clear:both;
 	color:#aab;
-	font-size:1.0em;
 	margin:1px 2px;
 	/*text-align: justify;*/
 }
