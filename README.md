@@ -23,8 +23,9 @@ Key features
   * Flickr account
   * Picasa/Google+ account
 
-![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot.png?raw=true "Screenshot")
-![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot2.png?raw=true "Screenshot")
+![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot.png?raw=true "Screenshot1")
+![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot2.png?raw=true "Screenshot2")
+![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot3.png?raw=true "Screenshot3")
 
 
 Demonstration
