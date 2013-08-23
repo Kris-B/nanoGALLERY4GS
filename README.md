@@ -65,9 +65,9 @@ History:
 
 Installation
 -----
-The latest release is available for download on the GetSimple Homepage: [Go to](http://get-simple.info/extend/plugin/nanogallery/630/)
-Download the zip file.
-Extract the content of the zip file into the GetSimple 'plugins' directory.
+* The latest release is available for download on the GetSimple Homepage: [Go to](http://get-simple.info/extend/plugin/nanogallery/630/)
+* Download the zip file.
+* Extract the content of the zip file into the GetSimple 'plugins' directory.
 
 
 Syntax and options
