@@ -1,8 +1,8 @@
-nanoGALLERY for GetSimple
+nanoGALLERY4GS for GetSimple
 ===========
 
-Image gallery for the GetSimple CMS.
-A powerful and easy to setup GetSimple plugin for displaying image galleries, with support for pulling in Flickr and Picasa/Google+ photo albums. Mobile-friendly and responsive.
+Image gallery for GetSimple CMS.
+A powerful and easy to setup GetSimple plugin for displaying image galleries, with support for pulling in Flickr and Picasa/Google+ photo albums. Mobile-friendly.
 Images are shown as clickable thumbnails, which will expand to full view via a modal popup window. Support custom themes.
 
 Key features
