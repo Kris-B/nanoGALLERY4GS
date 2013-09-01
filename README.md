@@ -94,7 +94,10 @@ Arguments are separated by ```&```. Following arguments are supported
 * ```displayBreadcrumb``` : ```true``` / ```false``` - display or not the navigation breadcrumb
 * ```blackList``` : list of keywords to ignore - photoset containing one the keyword in the title will be ignored. Keywords separator is '|'. (optional)
 
-
+To retrieve your Flickr user ID, use this page:
+```
+http://www.flickr.com/services/api/explore/flickr.people.findByUsername
+```
 
 
 ### Picasa/Google+ example:
