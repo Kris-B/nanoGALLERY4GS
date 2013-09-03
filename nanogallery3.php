@@ -22,7 +22,7 @@ register_plugin(
 	'pages', 						//page type - on which admin tab to display
 	'nanoGallery_show'  			//main function (administration)
 );
-
+ 
 # activate filter 
 add_filter('content','nanoGallery'); 
 add_action('index-pretemplate','nanoGallery_check'); 
