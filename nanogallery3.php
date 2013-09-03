@@ -2,7 +2,7 @@
 /*
 Plugin Name: nanoGallery
 Description: Ajax Image Gallery. Display images and albums stored in Picasa/Google+ or in Flickr
-Version: 3.2.1
+Version: 3.2.2
 Author: Christophe Brisbois
 Author URI: http://www.brisbois.fr/
 */
