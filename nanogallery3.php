@@ -15,7 +15,7 @@ $nanoGallery_debugmode=false;
 register_plugin(
 	$thisfile, 						//Plugin id
 	'nanoGallery', 					//Plugin name
-	'3.1.3', 						//Plugin version
+	'3.2.1', 						//Plugin version
 	'Christophe Brisbois',  		//Plugin author
 	'http://www.brisbois.fr/', 		//author website
 	'<b>Ajax Image Gallery.</b><br> Display images and albums stored in Picasa/Google+ or in Flickr', //Plugin description
