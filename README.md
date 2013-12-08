@@ -14,11 +14,11 @@ Key features
 - Display image captions and descriptions
 - Breadcrumb for easy navigation in Flickr photosets or Picasa/Google+ albums
 - Multiple galleries on one page
-- Include pre-built themes
-- Support for custom themes
-- Customizable 
+- Include pre-built themes, support for custom themes
+- Highly customizable 
 - Responsive layout - mobile friendly
 - Ignore desired albums or photosets (by keyword blacklisting)
+- Bootstrap framework compatible
 - Possible image sources :
   * Flickr account
   * Picasa/Google+ account
@@ -56,6 +56,7 @@ Example:
 History:
 -----
 
+* v4.0.2 - new : 30 thumbnails animated hover effects (combinations possible) / display images faster (thanks to pre-loading) / Boostrap compatible
 * v3.1.3 - new : built-in themes
 * v3.1.2 - bug fix multiple galleries on one page, new : javascript is now a jQuery plugin
 * v3.1.1 - bug fix for IE on Windows Phone (thanks Gregor!), new option to force load jQuery
@@ -78,21 +79,25 @@ Arguments are separated by ```&```. Following arguments are supported
 * ```displayCaption``` : ```true``` / ```false``` - display or not the title of the images (optional)
 * ```thumbnailHeight``` : integer - Height in pixels of the thumbnails (optional)
 * ```thumbnailWidth``` : integer - Width in pixels of the thumbnails (optional)
-* ```theme``` : name of the theme ```light``` ```largedark``` ```largelight``` - the corresponding css-file must also be included in the html file (optional)
+* ```theme``` : name of the theme ```clean``` ```default``` (optional)
+* ```thumbnailHoverEffect``` : 
+   Possible values: `slideUp`, `slideDown`, `slideLeft`, `slideRight`, `imageSlideUp`, `imageSlideDown`, `imageSlideLeft`, `imageSlideRight`, `labelAppear`, `labelAppear75`, `labelSlideDown`, `labelSlideUp`, `labelOpacity50`, `imageOpacity50`, `borderLighter`, `borderDarker`, `imageInvisible`, `descriptionSlideUp`, `imageScale150`, `imageScale150Outside`, `scale120`, `overScale`, `overScaleOutside`, `scaleLabelOverImage`, `rotateCornerBR`, `rotateCornerBL`, `imageRotateCornerBR`, `imageRotateCornerBL`, `imageFlipHorizontal`, `imageFlipVertical`
 
 ### Picasa/Google+ specific arguments
 * ```userID``` : user ID of the Picasa/Google+ account (mandatory)
 * ```kind``` : ```picasa``` - set the storage type (mandatory)
 * ```album``` : album ID - to display only the specified album 
 * ```displayBreadcrumb``` : ```true``` / ```false``` - display or not the navigation breadcrumb
-* ```blackList``` : list of keywords to ignore - album containing one the keyword in the title will be ignored. Keywords separator is '|'. (optional)
+* ```blackList``` : list of keywords to ignore - album containing one the keyword in the title will be ignored. Keywords separator is `|`. (optional)
+* ```whiteList``` : List of keywords to authorize - albums must contain one of the keywords to be displayed. Keywords separator is `|`. (optional)
 
 ### Flickr specific arguments
 * ```userID``` : user ID of the Flickr account (mandatory)
 * ```kind``` : ```flickr``` - set the storage type (mandatory)
 * ```photoset``` : photoset ID - to display only the specified photoset 
 * ```displayBreadcrumb``` : ```true``` / ```false``` - display or not the navigation breadcrumb
-* ```blackList``` : list of keywords to ignore - photoset containing one the keyword in the title will be ignored. Keywords separator is '|'. (optional)
+* ```blackList``` : list of keywords to ignore - photoset containing one the keyword in the title will be ignored. Keywords separator is `|`. (optional)
+* ```whiteList``` : List of keywords to authorize - photoset must contain one of the keywords to be displayed. Keywords separator is `|`. (optional)
 
 To retrieve your Flickr user ID, use this page:
 ```

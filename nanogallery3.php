@@ -2,7 +2,7 @@
 /*
 Plugin Name: nanoGallery
 Description: Ajax Image Gallery. Display images and albums stored in Picasa/Google+ or in Flickr
-Version: 3.2.2
+Version: 4.0.2
 Author: Christophe Brisbois
 Author URI: http://www.brisbois.fr/
 */
@@ -15,9 +15,9 @@ $nanoGallery_debugmode=false;
 register_plugin(
 	$thisfile, 						//Plugin id
 	'nanoGallery', 					//Plugin name
-	'3.2.2', 						//Plugin version
+	'4.0.2', 						//Plugin version
 	'Christophe Brisbois',  		//Plugin author
-	'http://www.brisbois.fr/', 		//author website
+	'http://nanogallery4gs.brisbois.fr/', 		//author website
 	'<b>Ajax Image Gallery.</b><br> Display images and albums stored in Picasa/Google+ or in Flickr', //Plugin description
 	'pages', 						//page type - on which admin tab to display
 	'nanoGallery_show'  			//main function (administration)
@@ -31,10 +31,16 @@ queue_script('jquery', GSFRONT);
 class nanoGallerySettings {
 	var $_kind='picasa';
     var $_userID='';
+	var $_thumbnailLabelPosition='';	//'overImageOnBottom';
 	var $_displayCaption=false;
+	var $_thumbnailHoverEffect='';
+	var $_viewer='';
+	var $_colorScheme='';
+	var $_colorSchemeViewer='';
 	var $_thumbnailHeight;
 	var $_thumbnailWidth;
 	var $_blackList;
+	var $_whiteList;
 	var $_forceJQuery=false;
 	var $_consistencyError='';
 	var $_theme='default';
@@ -42,6 +48,7 @@ class nanoGallerySettings {
 	var $_album='';
 	var $_photoset='';
 	var $_maxItemsPerLine=0;
+	var $_maxWidth=0;
 
 	// check the consistency of the parameters
 	public function checkConsistency() {
@@ -62,7 +69,7 @@ class nanoGallerySettings {
 		}
 
 //		if( $this->_stringFound ) {
-//			$this->_consistencyError='Incorrect parameters for nanoSlider. Please check the settings in your page.';
+//			$this->_consistencyError='Incorrect parameters for nanoGallery. Please check the settings in your page.';
 //			return false;
 //		}
 		$this->_consistencyError='Incorrect parameters for nanoGallery. Please check the settings in your page.';
@@ -76,16 +83,39 @@ class nanoGallerySettings {
 		global $SITEURL;
 		$s="{";
 		if( !empty($this->_userID) ) { $s.="'userID':'".$this->_userID."',"; } 
-		if( !empty($this->_displayCaption) ) { $s.="'displayCaption':".$this->_displayCaption.","; } 
+
+		//if( !empty($this->_displayCaption) ) { $s.="'displayCaption':".$this->_displayCaption.","; }
+		if( !empty($this->_displayCaption) ) { $s.="'displayCaption':".$this->_displayCaption.","; }
+
+		if( !empty($this->_thumbnailLabelPosition) ) {
+			if( !empty($this->_displayCaption) ) {
+				$s.="'thumbnailLabel':{'position':'".$this->_thumbnailLabelPosition."','display':".$this->_displayCaption."},";
+			}
+			else {
+				$s.="'thumbnailLabel':{'position':'".$this->_thumbnailLabelPosition."'},";
+			}
+		}
+		else {
+			if( !empty($this->_displayCaption) ) {
+				$s.="'thumbnailLabel':{'display':".$this->_displayCaption."},";
+			}
+		}
+
+		if( !empty($this->_thumbnailHoverEffect) ) { $s.="'thumbnailHoverEffect':'".$this->_thumbnailHoverEffect."',"; } 
+		if( !empty($this->_viewer) ) { $s.="'viewer':'".$this->_viewer."',"; } 
+		if( !empty($this->_colorScheme) ) { $s.="'colorScheme':'".$this->_colorScheme."',"; } 
+		if( !empty($this->_colorSchemeViewer) ) { $s.="'colorSchemeViewer':'".$this->_colorSchemeViewer."',"; } 
 		if( !empty($this->_thumbnailHeight) ) { $s.="'thumbnailHeight':'".$this->_thumbnailHeight."',"; } 
 		if( !empty($this->_thumbnailWidth) ) { $s.="'thumbnailWidth':'".$this->_thumbnailWidth."',"; } 
 		if( !empty($this->_blackList) ) { $s.="'blackList':'".$this->_blackList."',"; } 
+		if( !empty($this->_whiteList) ) { $s.="'whiteList':'".$this->_whiteList."',"; } 
 		if( !empty($this->_kind) ) { $s.="'kind':'".$this->_kind."',"; } 
 		if( !empty($this->_theme) ) { $s.="'theme':'".$this->_theme."',"; } 
 		if( !empty($this->_displayBreadcrumb) ) { $s.="'displayBreadcrumb':".$this->_displayBreadcrumb.","; } 
 		if( !empty($this->_album) ) { $s.="'album':'".$this->_album."',"; } 
 		if( !empty($this->_photoset) ) { $s.="'photoset':'".$this->_photoset."',"; } 
 		if( !empty($this->_maxItemsPerLine) ) { $s.="'maxItemsPerLine':'".$this->_maxItemsPerLine."',"; } 
+		if( !empty($this->_maxWidth) ) { $s.="'maxWidth':'".$this->_maxWidth."',"; } 
 		
 		if ( strlen($s) == 1 ) { return ""; }
 		
@@ -139,8 +169,14 @@ class nanoGalleryParsedContent {
 		// get parameters value
 		if( isset($fields['userID']) ) { $this->_nanoGallerySettings[$n]->_userID=$fields['userID']; }
 		if( isset($fields['displayCaption']) ) { $this->_nanoGallerySettings[$n]->_displayCaption=$fields['displayCaption']; }
+		if( isset($fields['thumbnailLabelPosition']) ) { $this->_nanoGallerySettings[$n]->_thumbnailLabelPosition=$fields['thumbnailLabelPosition']; }
+		if( isset($fields['thumbnailHoverEffect']) ) { $this->_nanoGallerySettings[$n]->_thumbnailHoverEffect=$fields['thumbnailHoverEffect']; }
+		if( isset($fields['viewer']) ) { $this->_nanoGallerySettings[$n]->_viewer=$fields['viewer']; }
+		if( isset($fields['colorScheme']) ) { $this->_nanoGallerySettings[$n]->_colorScheme=$fields['colorScheme']; }
+		if( isset($fields['colorSchemeViewer']) ) { $this->_nanoGallerySettings[$n]->_colorSchemeViewer=$fields['colorSchemeViewer']; }
 		if( isset($fields['thumbnailWidth']) ) { $this->_nanoGallerySettings[$n]->_thumbnailWidth=$fields['thumbnailWidth']; }
 		if( isset($fields['thumbnailHeight']) ) { $this->_nanoGallerySettings[$n]->_thumbnailHeight=$fields['thumbnailHeight']; }
+		if( isset($fields['whiteList']) ) { $this->_nanoGallerySettings[$n]->_whiteList=$fields['whiteList']; }
 		if( isset($fields['blackList']) ) { $this->_nanoGallerySettings[$n]->_blackList=$fields['blackList']; }
 		if( isset($fields['kind']) ) { $this->_nanoGallerySettings[$n]->_kind=$fields['kind']; }
 		if( isset($fields['theme']) ) { $this->_nanoGallerySettings[$n]->_theme=$fields['theme']; }
@@ -148,6 +184,7 @@ class nanoGalleryParsedContent {
 		if( isset($fields['album']) ) { $this->_nanoGallerySettings[$n]->_album=$fields['album']; }
 		if( isset($fields['photoset']) ) { $this->_nanoGallerySettings[$n]->_photoset=$fields['photoset']; }
 		if( isset($fields['maxItemsPerLine']) ) { $this->_nanoGallerySettings[$n]->_maxItemsPerLine=$fields['maxItemsPerLine']; }
+		if( isset($fields['maxWidth']) ) { $this->_nanoGallerySettings[$n]->_maxWidth=$fields['maxWidth']; }
 		if( isset($fields['forceJQuery']) ) { 
 			if( $fields['forceJQuery'] == 'true' ) { $this->_sliders[$n]->_forceJQuery=$fields['forceJQuery']; }
 		}
@@ -202,14 +239,22 @@ function nanoGallery_header() {
 		}
 	}
     $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/third.party/jquery-jsonp/jquery.jsonp.js"></script>'."\n";
-    $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/jquery.nanogallery.js"></script>'."\n";
+    $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/third.party/transit/jquery.transit.min.js"></script>'."\n";
+    $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/jquery.nanogallery.min.js"></script>'."\n";
 	
-    $tmpContent.='<link type="text/css" href="'.$SITEURL.'/plugins/nanogallery3/js/third.party/fancybox/jquery.fancybox.css?v=2.1.4" rel="stylesheet">'."\n";
-	$tmpContent.="<script type='text/javascript' src='".$SITEURL."/plugins/nanogallery3/js/third.party/fancybox/jquery.fancybox.pack.js?v=2.1.4'></script>"."\n";
-	
-    $tmpContent.='<link type="text/css" href="'.$SITEURL.'/plugins/nanogallery3/js/third.party/fancybox/helpers/jquery.fancybox-buttons.css?v=1.0.5" rel="stylesheet">'."\n";
-	$tmpContent.="<script type='text/javascript' src='".$SITEURL."/plugins/nanogallery3/js/third.party/fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5'></script>"."\n";
-	$tmpContent.="<script type='text/javascript' src='".$SITEURL."/plugins/nanogallery3/js/third.party/fancybox/helpers/jquery.fancybox-media.js?v=1.0.5'></script>"."\n";
+
+	for( $i=0; $i<count($mp->_nanoGallerySettings); $i++ ) {
+		if( $mp->_nanoGallerySettings[$i]->_viewer == 'fancybox' ) {
+			$tmpContent.='<link type="text/css" href="'.$SITEURL.'/plugins/nanogallery3/js/third.party/fancybox/jquery.fancybox.css?v=2.1.4" rel="stylesheet">'."\n";
+			$tmpContent.="<script type='text/javascript' src='".$SITEURL."/plugins/nanogallery3/js/third.party/fancybox/jquery.fancybox.pack.js?v=2.1.4'></script>"."\n";
+			
+			$tmpContent.='<link type="text/css" href="'.$SITEURL.'/plugins/nanogallery3/js/third.party/fancybox/helpers/jquery.fancybox-buttons.css?v=1.0.5" rel="stylesheet">'."\n";
+			$tmpContent.="<script type='text/javascript' src='".$SITEURL."/plugins/nanogallery3/js/third.party/fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5'></script>"."\n";
+			$tmpContent.="<script type='text/javascript' src='".$SITEURL."/plugins/nanogallery3/js/third.party/fancybox/helpers/jquery.fancybox-media.js?v=1.0.5'></script>"."\n";
+			break;
+		}
+	}
+
 
     $tmpContent.='<script>'."\n";
     $tmpContent.='  jQuery(document).ready(function () {'."\n";
