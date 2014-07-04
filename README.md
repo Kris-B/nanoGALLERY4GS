@@ -56,7 +56,7 @@ Example:
 History:
 -----
 
-* v4.4.2 - new : swipe support, thumbnail display mode justified (thumbnailWidth=auto) and cascading grid layout (thumbnailHeight=auto), new thumbnails hove effects
+* v4.4.2 - new : swipe support, thumbnail display mode justified (thumbnailWidth=auto) and cascading grid layout (thumbnailHeight=auto), new thumbnails hover effects, new theme
 * v4.0.2 - new : 30 thumbnails animated hover effects (combinations possible) / display images faster (thanks to pre-loading) / Boostrap compatible
 * v3.1.3 - new : built-in themes
 * v3.1.2 - bug fix multiple galleries on one page, new : javascript is now a jQuery plugin
