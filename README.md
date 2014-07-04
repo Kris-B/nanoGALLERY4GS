@@ -12,20 +12,20 @@ Key features
 - Quick and easy setup
 - Automatic thumbnails
 - Display image captions and descriptions
-- Breadcrumb for easy navigation in Flickr photosets or Picasa/Google+ albums
+- Breadcrumb for easy navigation in photo albums
 - Multiple galleries on one page
 - Include pre-built themes, support for custom themes
 - Highly customizable 
 - Responsive layout - mobile friendly
 - Ignore desired albums or photosets (by keyword blacklisting)
-- Bootstrap framework compatible
 - Possible image sources :
   * Flickr account
   * Picasa/Google+ account
 
-![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot.png?raw=true "Screenshot")
-![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot3.png?raw=true "Screenshot")
-![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot2.png?raw=true "Screenshot")
+![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot.jpg?raw=true "Screenshot")
+![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot2.jpg?raw=true "Screenshot")
+![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot3.jpg?raw=true "Screenshot")
+![Screenshot](/nanogallery3/doc/nanoGALLERY4GS_screenshot4.jpg?raw=true "Screenshot")
 
 
 Demonstration
@@ -56,6 +56,7 @@ Example:
 History:
 -----
 
+* v4.4.2 - new : swipe support, thumbnail display mode justified (thumbnailWidth=auto) and cascading grid layout (thumbnailHeight=auto), new thumbnails hove effects
 * v4.0.2 - new : 30 thumbnails animated hover effects (combinations possible) / display images faster (thanks to pre-loading) / Boostrap compatible
 * v3.1.3 - new : built-in themes
 * v3.1.2 - bug fix multiple galleries on one page, new : javascript is now a jQuery plugin
@@ -76,12 +77,13 @@ Syntax and options
 Arguments are separated by ```&```. Following arguments are supported 
 
 ### General arguments
-* ```displayCaption``` : ```true``` / ```false``` - display or not the title of the images (optional)
-* ```thumbnailHeight``` : integer - Height in pixels of the thumbnails (optional)
-* ```thumbnailWidth``` : integer - Width in pixels of the thumbnails (optional)
+* ```displayCaption``` : ```true``` / ```false``` - display or not the image title (optional)
+* ```displayDescription``` : ```true``` / ```false``` - display or not the image description (optional)
+* ```thumbnailHeight``` : integer or ```auto``` - Height in pixels of the thumbnails (optional)
+* ```thumbnailWidth``` : integer or ```auto``` - Width in pixels of the thumbnails (optional)
 * ```theme``` : name of the theme ```clean``` ```default``` (optional)
 * ```thumbnailHoverEffect``` : 
-   Possible values: `slideUp`, `slideDown`, `slideLeft`, `slideRight`, `imageSlideUp`, `imageSlideDown`, `imageSlideLeft`, `imageSlideRight`, `labelAppear`, `labelAppear75`, `labelSlideDown`, `labelSlideUp`, `labelOpacity50`, `imageOpacity50`, `borderLighter`, `borderDarker`, `imageInvisible`, `descriptionSlideUp`, `imageScale150`, `imageScale150Outside`, `scale120`, `overScale`, `overScaleOutside`, `scaleLabelOverImage`, `rotateCornerBR`, `rotateCornerBL`, `imageRotateCornerBR`, `imageRotateCornerBL`, `imageFlipHorizontal`, `imageFlipVertical`
+   Possible values: `slideUp`, `slideDown`, `slideLeft`, `slideRight`, `imageSlideUp`, `imageSlideDown`, `imageSlideLeft`, `imageSlideRight`, `labelAppear`, `labelAppear75`, `labelSlideDown`, `labelSlideUp`, `labelOpacity50`, `imageOpacity50`, `borderLighter`, `borderDarker`, `imageInvisible`, `descriptionSlideUp`, `imageScale150`, `imageScale150Outside`, `scale120`, `overScale`, `overScaleOutside`, `scaleLabelOverImage`, `rotateCornerBR`, `rotateCornerBL`, `imageRotateCornerBR`, `imageRotateCornerBL`, `imageFlipHorizontal`, `imageFlipVertical`, `labelSplitVert`, `labelSplit4`, `labelAppearSplitVert`, `labelAppearSplit4`, `imageSplitVert`, `imageSplit4`
 
 ### Picasa/Google+ specific arguments
 * ```userID``` : user ID of the Picasa/Google+ account (mandatory)
@@ -160,6 +162,4 @@ Third party tools
 * jQuery
 * fancybox2, credits: Janis Skarnelis
 
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/de295d45496c01bb871078aac2bcfcac "githalytics.com")](http://githalytics.com/Kris-B/nanoGALLERY)
 

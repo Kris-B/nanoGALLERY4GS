@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: nanoGallery
-Description: Ajax Image Gallery. Display images and albums stored in Picasa/Google+ or in Flickr
-Version: 4.0.2
+Description: Touch enabled and responsive image gallery. It supports pulling in Flickr, Picasa and Google+ photo albums.
+Version: 4.4.2
 Author: Christophe Brisbois
 Author URI: http://www.brisbois.fr/
 */
@@ -13,14 +13,14 @@ $nanoGallery_debugmode=false;
 
 # register plugin
 register_plugin(
-	$thisfile, 						//Plugin id
-	'nanoGallery', 					//Plugin name
-	'4.0.2', 						//Plugin version
+	$thisfile, 						      //Plugin id
+	'nanoGallery', 					    //Plugin name
+	'4.4.2', 						        //Plugin version
 	'Christophe Brisbois',  		//Plugin author
 	'http://nanogallery4gs.brisbois.fr/', 		//author website
-	'<b>Ajax Image Gallery.</b><br> Display images and albums stored in Picasa/Google+ or in Flickr', //Plugin description
-	'pages', 						//page type - on which admin tab to display
-	'nanoGallery_show'  			//main function (administration)
+	'<b>Touch enabled and responsive image gallery.</b><br> It supports pulling in Flickr, Picasa and Google+ photo albums.', //Plugin description
+	'pages', 						        //page type - on which admin tab to display
+	'nanoGallery_show'  			  //main function (administration)
 );
  
 # activate filter 
@@ -30,9 +30,10 @@ queue_script('jquery', GSFRONT);
 
 class nanoGallerySettings {
 	var $_kind='picasa';
-    var $_userID='';
+  var $_userID='';
 	var $_thumbnailLabelPosition='';	//'overImageOnBottom';
 	var $_displayCaption=false;
+	var $_displayDescription=false;
 	var $_thumbnailHoverEffect='';
 	var $_viewer='';
 	var $_colorScheme='';
@@ -82,31 +83,55 @@ class nanoGallerySettings {
 	public function jsParams() {
 		global $SITEURL;
 		$s="{";
-		if( !empty($this->_userID) ) { $s.="'userID':'".$this->_userID."',"; } 
+		if( !empty($this->_userID) ) { $s.="userID:'".$this->_userID."',"; } 
 
+    
+    $d="";
 		//if( !empty($this->_displayCaption) ) { $s.="'displayCaption':".$this->_displayCaption.","; }
-		if( !empty($this->_displayCaption) ) { $s.="'displayCaption':".$this->_displayCaption.","; }
+		if( !empty($this->_displayCaption) ) { $d.="display:".$this->_displayCaption.","; }
+		if( !empty($this->_displayDescription) ) { $d.="displayDescription:".$this->_displayDescription.","; }
 
 		if( !empty($this->_thumbnailLabelPosition) ) {
-			if( !empty($this->_displayCaption) ) {
-				$s.="'thumbnailLabel':{'position':'".$this->_thumbnailLabelPosition."','display':".$this->_displayCaption."},";
-			}
-			else {
-				$s.="'thumbnailLabel':{'position':'".$this->_thumbnailLabelPosition."'},";
-			}
+      $d.="position:'".$this->_thumbnailLabelPosition."',";
+			// if( !empty($this->_displayCaption) ) {
+				// $s.="'thumbnailLabel':{'position':'".$this->_thumbnailLabelPosition."','display':".$this->_displayCaption."},";
+			// }
+			// else {
+				// $s.="'thumbnailLabel':{'position':'".$this->_thumbnailLabelPosition."'},";
+			// }
 		}
-		else {
-			if( !empty($this->_displayCaption) ) {
-				$s.="'thumbnailLabel':{'display':".$this->_displayCaption."},";
-			}
-		}
+		// else {
+			// if( !empty($this->_displayCaption) ) {
+				// $s.="'thumbnailLabel':{'display':".$this->_displayCaption."},";
+			// }
+		// }
+    
+    if( !empty($d) ) {
+      $d=substr($d,0,strlen($d)-1);
+      $s.="'thumbnailLabel':{".$d."},";
+    }
 
 		if( !empty($this->_thumbnailHoverEffect) ) { $s.="'thumbnailHoverEffect':'".$this->_thumbnailHoverEffect."',"; } 
 		if( !empty($this->_viewer) ) { $s.="'viewer':'".$this->_viewer."',"; } 
 		if( !empty($this->_colorScheme) ) { $s.="'colorScheme':'".$this->_colorScheme."',"; } 
 		if( !empty($this->_colorSchemeViewer) ) { $s.="'colorSchemeViewer':'".$this->_colorSchemeViewer."',"; } 
-		if( !empty($this->_thumbnailHeight) ) { $s.="'thumbnailHeight':'".$this->_thumbnailHeight."',"; } 
-		if( !empty($this->_thumbnailWidth) ) { $s.="'thumbnailWidth':'".$this->_thumbnailWidth."',"; } 
+		// if( !empty($this->_thumbnailHeight) ) { $s.="'thumbnailHeight':'".$this->_thumbnailHeight."',"; } 
+		if( !empty($this->_thumbnailHeight) ) {
+      if( $this->_thumbnailHeight == 'auto' ) {
+        $s.="'thumbnailHeight':'".$this->_thumbnailHeight."',";
+      }
+      else {
+        $s.="'thumbnailHeight':".$this->_thumbnailHeight.",";
+      }
+    }
+		if( !empty($this->_thumbnailWidth) ) {
+      if( $this->_thumbnailWidth == 'auto' ) {
+        $s.="'thumbnailWidth':'".$this->_thumbnailWidth."',";
+      }
+      else {
+        $s.="'thumbnailWidth':".$this->_thumbnailWidth.",";
+      }
+    } 
 		if( !empty($this->_blackList) ) { $s.="'blackList':'".$this->_blackList."',"; } 
 		if( !empty($this->_whiteList) ) { $s.="'whiteList':'".$this->_whiteList."',"; } 
 		if( !empty($this->_kind) ) { $s.="'kind':'".$this->_kind."',"; } 
@@ -169,6 +194,7 @@ class nanoGalleryParsedContent {
 		// get parameters value
 		if( isset($fields['userID']) ) { $this->_nanoGallerySettings[$n]->_userID=$fields['userID']; }
 		if( isset($fields['displayCaption']) ) { $this->_nanoGallerySettings[$n]->_displayCaption=$fields['displayCaption']; }
+		if( isset($fields['displayDescription']) ) { $this->_nanoGallerySettings[$n]->_displayDescription=$fields['displayDescription']; }
 		if( isset($fields['thumbnailLabelPosition']) ) { $this->_nanoGallerySettings[$n]->_thumbnailLabelPosition=$fields['thumbnailLabelPosition']; }
 		if( isset($fields['thumbnailHoverEffect']) ) { $this->_nanoGallerySettings[$n]->_thumbnailHoverEffect=$fields['thumbnailHoverEffect']; }
 		if( isset($fields['viewer']) ) { $this->_nanoGallerySettings[$n]->_viewer=$fields['viewer']; }
@@ -238,8 +264,9 @@ function nanoGallery_header() {
 			break;
 		}
 	}
-    $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/third.party/jquery-jsonp/jquery.jsonp.js"></script>'."\n";
+    //$tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/third.party/jquery-jsonp/jquery.jsonp.js"></script>'."\n";
     $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/third.party/transit/jquery.transit.min.js"></script>'."\n";
+    $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/third.party/imagesloaded/imagesloaded.pkgd.min.js"></script>'."\n";
     $tmpContent.='<script type="text/javascript" src="'.$SITEURL.'/plugins/nanogallery3/js/jquery.nanogallery.min.js"></script>'."\n";
 	
 
