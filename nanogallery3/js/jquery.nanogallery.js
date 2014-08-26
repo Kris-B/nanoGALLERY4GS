@@ -1,5 +1,5 @@
 /**!
- * @preserve nanoGALLERY v4.4.2
+ * @preserve nanoGALLERY v4.4.2a
  * Plugin for jQuery by Christophe Brisbois
  * Demo: http://nanogallery.brisbois.fr
  * Sources: https://github.com/Kris-B/nanoGALLERY
@@ -16,24 +16,12 @@
 
 /*
 
-nanoGALLERY v4.4.2 release notes.
+nanoGALLERY v4.4.2a release notes.
 
 
-##### New features:
-- added native swipe support (hammer.js no more needed but still used if present)
-
-##### New options:
-- **viewerScrollBarHidden**: hide the viewer scrollbars
-	*boolean; Default: `true`*
-
-**Visit nanoGALLERY homepage for usage details: [http://nanogallery.brisbois.fr](http://www.nanogallery.brisbois.fr/)**
-
-##### Deprecated options:
-- none
-
-##### Misc
-- enhanced Picasa / Google+ filename decode
-- minor bugfixes
+##### Google+ and Picasa galleries not loading since 08-25-2014
+Google has changed the MIME TYPE for JSONP preventing nanoGALLERY from executing.
+Issue fixed by switching the Google+/Picasa requests to HTTPS.
 
 */
  
